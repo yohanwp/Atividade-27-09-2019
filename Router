@@ -1,0 +1,41 @@
+enable 
+configure terminal
+hostname SW-CORE
+banner motd "ACESSO AUTORIZADO PARA O DEPARTAMENTO DE TI"
+enable secret Batata02
+ip domain-name peachanddaisy.local
+crypto key generate rsa general-keys modulus 1024
+line vty 0 15
+password SenhadaVTY
+login
+transport input ssh
+exec-timeout 9
+login local
+exit
+username Kaiky privilege 15 secret Batata01
+username Yohan privilege 15 secret Batata01
+username Lucas privilege 15 secret Batata01
+usernama Augusto privilege 15 secret Batata01
+login block-for 240 attempts 7 withing 600
+line console 0
+password Batata02
+login
+exit
+vlan 10
+name VLAN 10
+vlan 20
+name VLAN 20
+vlan 100
+name VLAN 100
+vlan 99
+name TRUNK
+interface f0/1
+switchport mode access
+switchport access vlan 10
+description PC1
+interface f0/2
+switchport mode access
+switchport access vlan 20
+description PC2
+
+
